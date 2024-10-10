@@ -6,24 +6,26 @@ using UnityEngine;
 public class EditUI : MonoBehaviour
 {
     private static int editUICnt = 0;
-    public static EditUI Init(Action<int>SetLevelIndexToManager , Action<EditObject> SetEditObjectToManager, Action<Vector3>[] SetInputToManager, Action<OperateType> SetOperateToManager)
+    // public static EditUI Init(Action<int>SetLevelIndexToManager , Action<EditObject> SetEditObjectToManager, Action<Vector3>[] SetInputToManager, Action<OperateType> SetOperateToManager)
+    public static EditUI Init(ITransmitData_editUI2UIManager transmitData)
     {
         if(editUICnt > 0){return null;}
         editUICnt ++;
 
         GameObject gameObject = new GameObject("EditUI");
         EditUI editUI = gameObject.AddComponent<EditUI>();
-        editUI.SetLevelIndexToManager = SetLevelIndexToManager;
-        editUI.SetEditObjectToManager = SetEditObjectToManager;
-        editUI.SetInputToManager = SetInputToManager;
-        editUI.SetOperateToManager = SetOperateToManager;
+        editUI.transmitData = transmitData;
+        // editUI.SetLevelIndexToManager = SetLevelIndexToManager;
+        // editUI.SetEditObjectToManager = SetEditObjectToManager;
+        // editUI.SetInputToManager = SetInputToManager;
+        // editUI.SetOperateToManager = SetOperateToManager;
 
         editUI.editObject = new string[5]{"cube_player", "Cube" ,  "cube_tran", "cube_rota" , "parent_child"};
         editUI.inputString = new string[9]{"" , "" , "" , "" , "" , "" , "" , "" , ""};
 
-
         return editUI;
     }
+    private ITransmitData_editUI2UIManager transmitData;
     private int levelIndex;
     private int editObjectIndex;
     private string[] editObject;
@@ -47,10 +49,10 @@ public class EditUI : MonoBehaviour
         SaveLevel
     }
 
-    Action<int> SetLevelIndexToManager;
-    Action<EditObject> SetEditObjectToManager;
-    Action<Vector3>[] SetInputToManager;
-    Action<OperateType> SetOperateToManager;
+    // Action<int> SetLevelIndexToManager;
+    // Action<EditObject> SetEditObjectToManager;
+    // Action<Vector3>[] SetInputToManager;
+    // Action<OperateType> SetOperateToManager;
 
     public void SetLevelIndexToUI(int index)
     {
@@ -88,19 +90,19 @@ public class EditUI : MonoBehaviour
         GUILayout.BeginHorizontal();
         if(GUILayout.Button("LastLevel"))
         {
-            SetLevelIndexToManager(levelIndex - 1);
+            transmitData.SetLevelIndexToManager(levelIndex - 1);
         }
         GUILayout.Label("Level " + levelIndex.ToString());
         if(GUILayout.Button("NextLevel"))
         {
-            SetLevelIndexToManager(levelIndex + 1);
+            transmitData.SetLevelIndexToManager(levelIndex + 1);
         }
         GUILayout.EndHorizontal();
     }
     private void DrawEditObject()
     {
         editObjectIndex = GUILayout.SelectionGrid(editObjectIndex, editObject, 5);
-        SetEditObjectToManager((EditObject)editObjectIndex);
+        transmitData.SetEditObjectToManager((EditObject)editObjectIndex);
     }
     private void DrawInputField()
     {
@@ -142,22 +144,22 @@ public class EditUI : MonoBehaviour
         if(GUILayout.Button("Add"))
         {
             SendInputToManager();
-            SetOperateToManager(OperateType.Add);
+            transmitData.SetOperateToManager(OperateType.Add);
         }
         if(GUILayout.Button("Delete"))
         {
             SendInputToManager();
-            SetOperateToManager(OperateType.Delete);
+            transmitData.SetOperateToManager(OperateType.Delete);
         }
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         if(GUILayout.Button("NewLevel"))
         {
-            SetOperateToManager(OperateType.NewLevel);
+            transmitData.SetOperateToManager(OperateType.NewLevel);
         }
         if(GUILayout.Button("SaveLevel"))
         {
-            SetOperateToManager(OperateType.SaveLevel);
+            transmitData.SetOperateToManager(OperateType.SaveLevel);
         }
         GUILayout.EndHorizontal();
     }
@@ -174,7 +176,8 @@ public class EditUI : MonoBehaviour
         for(int i = 0 ; i < 3 ; i ++)
         {
             Vector3 input = new Vector3(float.Parse(inputString[i * 3]), float.Parse(inputString[i * 3 + 1]), float.Parse(inputString[i * 3 + 2]));
-            SetInputToManager[i](input);
+            // transmitData.SetInputToManager[i](input);
+            transmitData.SetInputToManager(input , i);
         }
     }
   

@@ -3,12 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager
+public class UIManager : ITransmitData_editUI2UIManager
 {
     EditUI editUI;
+    private UIMode uiMode;
+    private int maxLevelIndex;
+    public int levelIndex{get; private set;}
+    private EditUI.EditObject editObject;   //editUI 选中的对象类型
+    private Vector3[] inputVector = new Vector3[3];
     public void Init()
     {
-        editUI = EditUI.Init(SetLevelIndexToManager , SetEditObjectToManager , new Action<Vector3>[] {SetInputToManager_0, SetInputToManager_1, SetInputToManager_2} , SetOperateToManager);
+        // editUI = EditUI.Init(SetLevelIndexToManager , SetEditObjectToManager , new Action<Vector3>[] {SetInputToManager_0, SetInputToManager_1, SetInputToManager_2} , SetOperateToManager);
+        editUI = EditUI.Init(this);
         SetUIMode(UIMode.Edit);
     }
     public enum UIMode
@@ -16,7 +22,6 @@ public class UIManager
         Edit,
         Play
     }
-    private UIMode uiMode;
     public void SetUIMode(UIMode uiMode)
     {
         this.uiMode = uiMode;
@@ -41,11 +46,7 @@ public class UIManager
         }
     }
 
-    private int levelIndex;
-    private int maxLevelIndex;
-    private EditUI.EditObject editObject;
-    private Vector3[] inputVector = new Vector3[3];
-
+// editUI
 #region EditUI delegate
     public void SetLevelIndexToManager(int index)
     {
@@ -62,23 +63,26 @@ public class UIManager
             levelIndex = index;
         }
         SaveCommand.Instance.LoadLevel(levelIndex);
-        // return levelIndex;
     }
     public void SetEditObjectToManager(EditUI.EditObject editObject)
     {
         this.editObject = editObject;
     }
-    public void SetInputToManager_0(Vector3 num)
+    // public void SetInputToManager_0(Vector3 num)
+    // {
+    //     inputVector[0] = num;
+    // }
+    // public void SetInputToManager_1(Vector3 num)
+    // {
+    //     inputVector[1] = num;
+    // }
+    // public void SetInputToManager_2(Vector3 num)
+    // {
+    //     inputVector[2] = num;
+    // }
+    public void SetInputToManager(Vector3 num , int index)
     {
-        inputVector[0] = num;
-    }
-    public void SetInputToManager_1(Vector3 num)
-    {
-        inputVector[1] = num;
-    }
-    public void SetInputToManager_2(Vector3 num)
-    {
-        inputVector[2] = num;
+        inputVector[index] = num;
     }
     public void SetOperateToManager(EditUI.OperateType operateType)
     {
@@ -124,17 +128,35 @@ public class UIManager
     public void SetLevelIndex(int index)
     {
         levelIndex = index;
-        editUI.SetLevelIndexToUI(index);
+        if(uiMode == UIMode.Edit)
+        {
+            editUI.SetLevelIndexToUI(index);
+        }
+        else
+        {
+
+        }
     }
     public void SetInput(Vector3 num , int index)
     {
+        inputVector[index] = num;
         editUI.SetInputToUI(num , index);
     }
     public void SetEditObject(EditUI.EditObject editObject)
     {
+        this.editObject = editObject;
         editUI.SetEditObjectToUI(editObject);
     }
-
-
+    public int GetNextLevelIndex()
+    {
+        if(levelIndex == maxLevelIndex)
+        {
+            return 0;
+        }
+        else
+        {
+            return levelIndex + 1;
+        }
+    }
 
 }

@@ -59,4 +59,13 @@ public class PlayCommand : Command
         Debug.Log("CubeMove end");
     }
 
+    public void JudgeVictory(bool flag)
+    {
+        if(flag)
+        {
+            Debug.Log("Victory");
+            SaveCommand.Instance.LoadLevel(uiManager.GetNextLevelIndex());
+        }
+    }
+
 }

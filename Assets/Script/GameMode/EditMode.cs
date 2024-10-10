@@ -15,6 +15,11 @@ public class EditMode : BaseMode
             selectedCube = hit.collider.GetComponent<BaseCube>();
         }
         
+        if (Input.GetMouseButtonDown(0) && selectedCube != null)
+        {
+            // EditCommand.Instance
+        }
+
         if(Input.GetKeyDown(KeyCode.CapsLock))
         {
             SystemCommand.Instance.ChangeGameMode();

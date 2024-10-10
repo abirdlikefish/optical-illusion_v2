@@ -42,7 +42,7 @@ public class BaseCube : MonoBehaviour
         childCubes.Remove(childCube);
     }
     // public virtual void RemoveCube()
-    public void RemoveCube()
+    public virtual void RemoveCube()
     {
         cubeMap.RemoveCubeMap(position);
         foreach(BaseCube childCube in childCubes)

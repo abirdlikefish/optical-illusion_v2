@@ -70,7 +70,7 @@ public class BuildCommand : Command
         Debug.Log("RemoveCube begin");
         if(worldSpaceManager.IsCubeExist(position) == false)
         {
-            Debug.LogWarning("AddCube failed");
+            Debug.LogWarning("RemoveCube failed");
             return false;
         }
         worldSpaceManager.RemoveCube(position);

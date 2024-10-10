@@ -8,23 +8,28 @@ public class Cube_player : BaseCube
     public static Cube_player AddPlayer(Vector3Int position, Vector3Int destination)
     {
         GameObject prefab = Resources.Load<GameObject>("Prefabs/Cube_player");
+        GameObject prefab_destination = Resources.Load<GameObject>("Prefabs/Cube_player_destination");
         if(prefab == null)
         {
             Debug.LogError("Cube_player prefab not found");
             return null;
         }
         prefab = Instantiate(prefab);
+        prefab_destination = Instantiate(prefab_destination);
         Cube_player player = prefab.GetComponent<Cube_player>();
-        player.Init(position, destination);
+        player.Init(position, destination, prefab_destination);
         return player;
     }
     // public Vector3Int position;
     Vector3Int destination;
-    protected void Init(Vector3Int position , Vector3Int destination)
+    GameObject destinationObject;
+    protected void Init(Vector3Int position , Vector3Int destination , GameObject destinationObject)
     {
         this.position = position;
         this.destination = destination;
         transform.position = position + Vector3Int.up;
+        this.destinationObject = destinationObject;
+        destinationObject.transform.position = destination + Vector3Int.up;
         moveTargetList = new Stack<Vector3Int>();
         isMove = false;
         speed = 3f;
@@ -49,6 +54,7 @@ public class Cube_player : BaseCube
         base.ChangePosition();
         position = parentCube.position;
         transform.position = position + Vector3Int.up;
+        PlayCommand.Instance.JudgeVictory(position == destination);
     }
     public override void AddParentCube(BaseCube parentCube)
     {
@@ -67,6 +73,12 @@ public class Cube_player : BaseCube
         isMove = true;
     }
 
+    public override void RemoveCube()
+    {
+        Destroy(destinationObject);
+        base.RemoveCube();
+    }
+
     private bool isMove;
     private float speed ;
     private Action MoveEnd;
@@ -82,6 +94,7 @@ public class Cube_player : BaseCube
                     isMove = false;
                     position = Vector3Int.RoundToInt(transform.position - Vector3.up);
                     MoveEnd();
+                    PlayCommand.Instance.JudgeVictory(position == destination);
                     return ;
                 }
                 else
