@@ -68,18 +68,6 @@ public class UIManager : ITransmitData_editUI2UIManager
     {
         this.editObject = editObject;
     }
-    // public void SetInputToManager_0(Vector3 num)
-    // {
-    //     inputVector[0] = num;
-    // }
-    // public void SetInputToManager_1(Vector3 num)
-    // {
-    //     inputVector[1] = num;
-    // }
-    // public void SetInputToManager_2(Vector3 num)
-    // {
-    //     inputVector[2] = num;
-    // }
     public void SetInputToManager(Vector3 num , int index)
     {
         inputVector[index] = num;
@@ -142,6 +130,10 @@ public class UIManager : ITransmitData_editUI2UIManager
         inputVector[index] = num;
         editUI.SetInputToUI(num , index);
         Debug.Log("SetInput " + num);
+    }
+    public Vector3 GetInput(int index)
+    {
+        return inputVector[index];
     }
     public void SetEditObject(EditUI.EditObject editObject)
     {

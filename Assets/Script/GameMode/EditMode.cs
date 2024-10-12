@@ -23,6 +23,30 @@ public class EditMode : BaseMode
         {
             BuildCommand.Instance.SelectCube(selectedCube.position , 1);
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            BuildCommand.Instance.SelectNextCube(Vector3Int.up , 0);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            BuildCommand.Instance.SelectNextCube(Vector3Int.down , 0);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            BuildCommand.Instance.SelectNextCube(Vector3Int.right , 0);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            BuildCommand.Instance.SelectNextCube(Vector3Int.left , 0);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            BuildCommand.Instance.SelectNextCube(Vector3Int.back , 0);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            BuildCommand.Instance.SelectNextCube(Vector3Int.forward , 0);
+        }
 
         if(Input.GetKeyDown(KeyCode.CapsLock))
         {

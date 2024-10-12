@@ -92,8 +92,12 @@ public class BuildCommand : Command
         Debug.Log("RemoveParentCube end");
     }
 
-    public void SelectCube(Vector3Int position , int index)
+    public void SelectCube(Vector3 position , int index)
     {
         uiManager.SetInput(position , index);
+    }
+    public void SelectNextCube(Vector3Int position , int index)
+    {
+        SelectCube(uiManager.GetInput(index) + position , index);
     }
 }
