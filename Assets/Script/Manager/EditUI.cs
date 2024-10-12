@@ -64,9 +64,9 @@ public class EditUI : MonoBehaviour
     }
     public void SetInputToUI(Vector3 num , int index)
     {
-        inputString[index] = num.x.ToString();
-        inputString[index + 1] = num.y.ToString();
-        inputString[index + 2] = num.z.ToString();
+        inputString[index*3] = num.x.ToString();
+        inputString[index*3 + 1] = num.y.ToString();
+        inputString[index*3 + 2] = num.z.ToString();
     }
     public void UseEditUI()
     {

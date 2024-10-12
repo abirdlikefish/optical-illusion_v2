@@ -141,6 +141,7 @@ public class UIManager : ITransmitData_editUI2UIManager
     {
         inputVector[index] = num;
         editUI.SetInputToUI(num , index);
+        Debug.Log("SetInput " + num);
     }
     public void SetEditObject(EditUI.EditObject editObject)
     {

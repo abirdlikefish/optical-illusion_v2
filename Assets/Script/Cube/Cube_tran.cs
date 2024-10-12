@@ -38,9 +38,9 @@ public class Cube_tran : BaseCube
         this.position = position;
         this.originPosition = position;
         this.maxDistance = (int)Math.Round(translateDirection.magnitude);
-        Debug.Log("maxDistance: " + maxDistance);
+        // Debug.Log("maxDistance: " + maxDistance);
         this.translateDirection = Vector3Int.RoundToInt(((Vector3)translateDirection).normalized);
-        Debug.Log("translateDirection: " + this.translateDirection);
+        // Debug.Log("translateDirection: " + this.translateDirection);
         transform.position = position;
         cubeMap.SetCubeMap(this, position);
 

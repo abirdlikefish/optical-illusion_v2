@@ -91,4 +91,9 @@ public class BuildCommand : Command
         worldSpaceManager.RemoveParentCube(parentPosition, childPosition);
         Debug.Log("RemoveParentCube end");
     }
+
+    public void SelectCube(Vector3Int position , int index)
+    {
+        uiManager.SetInput(position , index);
+    }
 }

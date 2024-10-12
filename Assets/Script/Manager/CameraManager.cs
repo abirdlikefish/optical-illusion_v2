@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour
     {
         transform.position = dir[viewIndex] * -100;
         transform.LookAt(transform.position + dir[viewIndex]);
-        changeTime = 2;
+        changeTime = 1;
         isChanging = false;
         this.viewIndex = viewIndex;
     }

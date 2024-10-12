@@ -89,10 +89,6 @@ public class LevelData
     public void LoadLevelData(Action<Vector3Int , Vector3Int> addPlayer , Action<Vector3Int, Vector3Int> addParentChild, Action<Vector3Int> addCube, Action<Vector3Int, Vector3Int, Vector3> addCubeRotate, Action<Vector3Int, Vector3Int> addCubeTranslate)
     {
         addPlayer(player.position, player.destination);
-        foreach (s_ParentChild parentChild in parentChildList)
-        {
-            addParentChild(parentChild.parentPosition, parentChild.childPosition);
-        }
         foreach (s_Cube cube in cubeList)
         {
             addCube(cube.position);
@@ -104,6 +100,10 @@ public class LevelData
         foreach (s_Cube_translate cubeTranslate in cubeTranslateList)
         {
             addCubeTranslate(cubeTranslate.position, cubeTranslate.translateDirection);
+        }
+        foreach (s_ParentChild parentChild in parentChildList)
+        {
+            addParentChild(parentChild.parentPosition, parentChild.childPosition);
         }
     }
     public void Init()

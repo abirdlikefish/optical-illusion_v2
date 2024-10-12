@@ -17,7 +17,11 @@ public class EditMode : BaseMode
         
         if (Input.GetMouseButtonDown(0) && selectedCube != null)
         {
-            // EditCommand.Instance
+            BuildCommand.Instance.SelectCube(selectedCube.position , 0);
+        }
+        if (Input.GetMouseButtonDown(1) && selectedCube != null)
+        {
+            BuildCommand.Instance.SelectCube(selectedCube.position , 1);
         }
 
         if(Input.GetKeyDown(KeyCode.CapsLock))

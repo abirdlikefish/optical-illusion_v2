@@ -63,7 +63,8 @@ public class PlayCommand : Command
     {
         if(flag)
         {
-            Debug.Log("Victory");
+            Debug.Log("Victory " + uiManager.levelIndex);
+            Debug.Log("Next Level " + uiManager.GetNextLevelIndex());
             SaveCommand.Instance.LoadLevel(uiManager.GetNextLevelIndex());
         }
     }

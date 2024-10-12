@@ -32,7 +32,7 @@ public class Cube_player : BaseCube
         destinationObject.transform.position = destination + Vector3Int.up;
         moveTargetList = new Stack<Vector3Int>();
         isMove = false;
-        speed = 3f;
+        speed = 6f;
         
         childCubes = new HashSet<BaseCube>();
     }
@@ -54,6 +54,7 @@ public class Cube_player : BaseCube
         base.ChangePosition();
         position = parentCube.position;
         transform.position = position + Vector3Int.up;
+        Debug.Log("Player ChangePosition");
         PlayCommand.Instance.JudgeVictory(position == destination);
     }
     public override void AddParentCube(BaseCube parentCube)
@@ -94,7 +95,7 @@ public class Cube_player : BaseCube
                     isMove = false;
                     position = Vector3Int.RoundToInt(transform.position - Vector3.up);
                     MoveEnd();
-                    PlayCommand.Instance.JudgeVictory(position == destination);
+                    // PlayCommand.Instance.JudgeVictory(position == destination);
                     return ;
                 }
                 else
