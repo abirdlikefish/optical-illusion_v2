@@ -27,6 +27,5 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         modeMachine.Update();
-        
     }
 }

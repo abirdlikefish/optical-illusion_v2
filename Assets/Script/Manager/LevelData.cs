@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class LevelData
 {
+    public int index;
     [System.Serializable]
     struct s_Player
     {
@@ -86,8 +87,9 @@ public class LevelData
         cubeRotateList.Clear();
         cubeTranslateList.Clear();
     }
-    public void LoadLevelData(Action<Vector3Int , Vector3Int> addPlayer , Action<Vector3Int, Vector3Int> addParentChild, Action<Vector3Int> addCube, Action<Vector3Int, Vector3Int, Vector3> addCubeRotate, Action<Vector3Int, Vector3Int> addCubeTranslate)
+    public void LoadLevelData(int index ,Action<Vector3Int , Vector3Int> addPlayer , Action<Vector3Int, Vector3Int> addParentChild, Action<Vector3Int> addCube, Action<Vector3Int, Vector3Int, Vector3> addCubeRotate, Action<Vector3Int, Vector3Int> addCubeTranslate)
     {
+        this.index = index;
         addPlayer(player.position, player.destination);
         foreach (s_Cube cube in cubeList)
         {

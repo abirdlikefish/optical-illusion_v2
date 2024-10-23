@@ -48,7 +48,7 @@ public class SaveManager
 #region load
     public void LoadLevelData(int index, Action<Vector3Int, Vector3Int> addPlayer, Action<Vector3Int, Vector3Int> addParentChild, Action<Vector3Int> addCube, Action<Vector3Int, Vector3Int, Vector3> addCubeRotate, Action<Vector3Int, Vector3Int> addCubeTranslate)
     {
-        levelDataList[index].LoadLevelData(addPlayer , addParentChild, addCube, addCubeRotate, addCubeTranslate);
+        levelDataList[index].LoadLevelData(index ,addPlayer , addParentChild, addCube, addCubeRotate, addCubeTranslate);
     }
 #endregion
 

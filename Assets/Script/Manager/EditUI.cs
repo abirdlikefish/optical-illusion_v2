@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class EditUI : MonoBehaviour
 {
+    public GameObject aaa;
+    public static GameObject preFab_aaa;
+
     private static int editUICnt = 0;
     // public static EditUI Init(Action<int>SetLevelIndexToManager , Action<EditObject> SetEditObjectToManager, Action<Vector3>[] SetInputToManager, Action<OperateType> SetOperateToManager)
     public static EditUI Init(ITransmitData_editUI2UIManager transmitData)
     {
         if(editUICnt > 0){return null;}
         editUICnt ++;
+        preFab_aaa = Resources.Load<GameObject>("aaa");
 
         GameObject gameObject = new GameObject("EditUI");
         EditUI editUI = gameObject.AddComponent<EditUI>();
@@ -137,6 +141,15 @@ public class EditUI : MonoBehaviour
             }
             GUILayout.EndHorizontal();
         }
+        if(aaa != null)
+        {
+            Destroy(aaa);
+        }
+        Vector3Int midPos = new Vector3Int(0,0,0);
+        midPos.x = inputString[0] == "" ? 0 : int.Parse(inputString[0]);
+        midPos.y = inputString[1] == "" ? 0 : int.Parse(inputString[1]);
+        midPos.z = inputString[2] == "" ? 0 : int.Parse(inputString[2]);
+        aaa = GameObject.Instantiate(preFab_aaa , midPos , Quaternion.identity);
     }
     private void DrawOperateButton()
     {
